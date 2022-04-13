@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MayoristaEstrellaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Marca">
+          <Key>
+            <PropertyRef Name="IdMarca" />
+          </Key>
+          <Property Name="IdMarca" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescripcionMarca" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="IdProducto" />
+          </Key>
+          <Property Name="IdProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+          <Property Name="IdRubro" Type="int" />
+          <Property Name="IdMarca" Type="int" />
+          <Property Name="IdUnidadMedida" Type="int" />
+          <Property Name="PVP" Type="real" />
+          <Property Name="Cantidad" Type="int" />
+        </EntityType>
+        <EntityType Name="Rubro">
+          <Key>
+            <PropertyRef Name="IdRubro" />
+          </Key>
+          <Property Name="IdRubro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescripcionRubro" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UnidadMedida">
+          <Key>
+            <PropertyRef Name="IDUnidadMedida" />
+          </Key>
+          <Property Name="IDUnidadMedida" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescripcionUnidadMedida" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Producto_Marca">
+          <End Role="Marca" Type="Self.Marca" Multiplicity="0..1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Marca">
+              <PropertyRef Name="IdMarca" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="IdMarca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_Rubro">
+          <End Role="Rubro" Type="Self.Rubro" Multiplicity="0..1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rubro">
+              <PropertyRef Name="IdRubro" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="IdRubro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_UnidadMedida">
+          <End Role="UnidadMedida" Type="Self.UnidadMedida" Multiplicity="0..1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UnidadMedida">
+              <PropertyRef Name="IDUnidadMedida" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="IdUnidadMedida" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MayoristaEstrellaModelStoreContainer">
+          <EntitySet Name="Marca" EntityType="Self.Marca" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rubro" EntityType="Self.Rubro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UnidadMedida" EntityType="Self.UnidadMedida" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Producto_Marca" Association="Self.FK_Producto_Marca">
+            <End Role="Marca" EntitySet="Marca" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_Rubro" Association="Self.FK_Producto_Rubro">
+            <End Role="Rubro" EntitySet="Rubro" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_UnidadMedida" Association="Self.FK_Producto_UnidadMedida">
+            <End Role="UnidadMedida" EntitySet="UnidadMedida" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MayoristaEstrellaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Marca">
+          <Key>
+            <PropertyRef Name="IdMarca" />
+          </Key>
+          <Property Name="IdMarca" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescripcionMarca" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK_Producto_Marca" FromRole="Marca" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="IdProducto" />
+          </Key>
+          <Property Name="IdProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdRubro" Type="Int32" />
+          <Property Name="IdMarca" Type="Int32" />
+          <Property Name="IdUnidadMedida" Type="Int32" />
+          <Property Name="PVP" Type="Single" />
+          <Property Name="Cantidad" Type="Int32" />
+          <NavigationProperty Name="Marca" Relationship="Self.FK_Producto_Marca" FromRole="Producto" ToRole="Marca" />
+          <NavigationProperty Name="Rubro" Relationship="Self.FK_Producto_Rubro" FromRole="Producto" ToRole="Rubro" />
+          <NavigationProperty Name="UnidadMedida" Relationship="Self.FK_Producto_UnidadMedida" FromRole="Producto" ToRole="UnidadMedida" />
+        </EntityType>
+        <EntityType Name="Rubro">
+          <Key>
+            <PropertyRef Name="IdRubro" />
+          </Key>
+          <Property Name="IdRubro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescripcionRubro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK_Producto_Rubro" FromRole="Rubro" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="UnidadMedida">
+          <Key>
+            <PropertyRef Name="IDUnidadMedida" />
+          </Key>
+          <Property Name="IDUnidadMedida" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescripcionUnidadMedida" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK_Producto_UnidadMedida" FromRole="UnidadMedida" ToRole="Producto" />
+        </EntityType>
+        <Association Name="FK_Producto_Marca">
+          <End Role="Marca" Type="Self.Marca" Multiplicity="0..1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Marca">
+              <PropertyRef Name="IdMarca" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="IdMarca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_Rubro">
+          <End Role="Rubro" Type="Self.Rubro" Multiplicity="0..1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rubro">
+              <PropertyRef Name="IdRubro" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="IdRubro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_UnidadMedida">
+          <End Role="UnidadMedida" Type="Self.UnidadMedida" Multiplicity="0..1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UnidadMedida">
+              <PropertyRef Name="IDUnidadMedida" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="IdUnidadMedida" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MayoristaEstrellaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Marca" EntityType="Self.Marca" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" />
+          <EntitySet Name="Rubro" EntityType="Self.Rubro" />
+          <EntitySet Name="UnidadMedida" EntityType="Self.UnidadMedida" />
+          <AssociationSet Name="FK_Producto_Marca" Association="Self.FK_Producto_Marca">
+            <End Role="Marca" EntitySet="Marca" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_Rubro" Association="Self.FK_Producto_Rubro">
+            <End Role="Rubro" EntitySet="Rubro" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_UnidadMedida" Association="Self.FK_Producto_UnidadMedida">
+            <End Role="UnidadMedida" EntitySet="UnidadMedida" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MayoristaEstrellaModelStoreContainer" CdmEntityContainer="MayoristaEstrellaEntities">
+          <EntitySetMapping Name="Marca">
+            <EntityTypeMapping TypeName="MayoristaEstrellaModel.Marca">
+              <MappingFragment StoreEntitySet="Marca">
+                <ScalarProperty Name="IdMarca" ColumnName="IdMarca" />
+                <ScalarProperty Name="DescripcionMarca" ColumnName="DescripcionMarca" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producto">
+            <EntityTypeMapping TypeName="MayoristaEstrellaModel.Producto">
+              <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdRubro" ColumnName="IdRubro" />
+                <ScalarProperty Name="IdMarca" ColumnName="IdMarca" />
+                <ScalarProperty Name="IdUnidadMedida" ColumnName="IdUnidadMedida" />
+                <ScalarProperty Name="PVP" ColumnName="PVP" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rubro">
+            <EntityTypeMapping TypeName="MayoristaEstrellaModel.Rubro">
+              <MappingFragment StoreEntitySet="Rubro">
+                <ScalarProperty Name="IdRubro" ColumnName="IdRubro" />
+                <ScalarProperty Name="DescripcionRubro" ColumnName="DescripcionRubro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UnidadMedida">
+            <EntityTypeMapping TypeName="MayoristaEstrellaModel.UnidadMedida">
+              <MappingFragment StoreEntitySet="UnidadMedida">
+                <ScalarProperty Name="IDUnidadMedida" ColumnName="IDUnidadMedida" />
+                <ScalarProperty Name="DescripcionUnidadMedida" ColumnName="DescripcionUnidadMedida" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

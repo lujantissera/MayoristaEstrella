@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="cc4c690f72f44cd7affcf0c2328fc6d5" Name="Diagram1">
+        <EntityTypeShape EntityType="MayoristaEstrellaModel.Marca" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MayoristaEstrellaModel.Producto" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MayoristaEstrellaModel.Rubro" Width="1.5" PointX="6.125" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MayoristaEstrellaModel.UnidadMedida" Width="1.5" PointX="5.375" PointY="4" IsExpanded="true" />
+        <AssociationConnector Association="MayoristaEstrellaModel.FK_Producto_Marca" ManuallyRouted="false" />
+        <AssociationConnector Association="MayoristaEstrellaModel.FK_Producto_Rubro" ManuallyRouted="false" />
+        <AssociationConnector Association="MayoristaEstrellaModel.FK_Producto_UnidadMedida" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
